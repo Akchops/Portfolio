@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Portrait of Aarav Chopra (placeholder)">
+  <!-- Neutral placeholder silhouette. Replace this file with the real portrait
+       (keep the 4:5 ratio, or update width/height on the <img> in index.html). -->
+  <rect width="800" height="1000" fill="#17191D"/>
+  <circle cx="400" cy="390" r="150" fill="#2A2D33"/>
+  <path d="M120 1000c0-190 125-330 280-330s280 140 280 330z" fill="#2A2D33"/>
+</svg>

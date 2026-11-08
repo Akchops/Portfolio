@@ -1,0 +1,38 @@
+{
+  "name": "floodlights-landscape",
+  "fps": 30,
+  "master": {
+    "width": 1280,
+    "height": 720,
+    "frames": 49
+  },
+  "ladder": {
+    "width": 320,
+    "height": 180,
+    "frames": 49,
+    "format": "jpg",
+    "dir": "ladder"
+  },
+  "tiers": [
+    {
+      "maxWidth": 899,
+      "width": 960,
+      "height": 540,
+      "frames": 49,
+      "step": 1,
+      "window": 8,
+      "format": "jpg",
+      "dir": "tier-960"
+    },
+    {
+      "maxWidth": null,
+      "width": 1280,
+      "height": 720,
+      "frames": 49,
+      "step": 1,
+      "window": 5,
+      "format": "jpg",
+      "dir": "tier-1280"
+    }
+  ]
+}

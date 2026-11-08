@@ -1,0 +1,38 @@
+{
+  "name": "floodlights-portrait",
+  "fps": 30,
+  "master": {
+    "width": 720,
+    "height": 1280,
+    "frames": 49
+  },
+  "ladder": {
+    "width": 180,
+    "height": 320,
+    "frames": 49,
+    "format": "jpg",
+    "dir": "ladder"
+  },
+  "tiers": [
+    {
+      "maxWidth": 599,
+      "width": 540,
+      "height": 960,
+      "frames": 49,
+      "step": 1,
+      "window": 8,
+      "format": "jpg",
+      "dir": "tier-540"
+    },
+    {
+      "maxWidth": null,
+      "width": 720,
+      "height": 1280,
+      "frames": 49,
+      "step": 1,
+      "window": 5,
+      "format": "jpg",
+      "dir": "tier-720"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+# Master frames written by `npm run sequence` (62 MB of PNG). Regenerable;
+# the encoded tiers in public/seq/ are what ships.
+assets-src/seq/
+# QA output
+qa-run/
