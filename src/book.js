@@ -1,10 +1,10 @@
-// Booking: Cal.com inline embed for cal.com/aaravchopra, loaded only as the
+// Booking: Cal.com inline embed for cal.com/aarav-orevjw, loaded only as the
 // section approaches. The "Email to book" button is in the HTML from the
 // start (it is what no-JS visitors get) and stays until the embed reports that
 // the booking page is ready. If the page fails to load, or nothing is ready
 // within 8 s, the embed is removed and the button remains.
 
-const CAL_LINK = 'aaravchopra';
+const CAL_LINK = 'aarav-orevjw';
 const ORIGIN = 'https://cal.com';
 const EMBED_JS = 'https://app.cal.com/embed/embed.js';
 
