@@ -1,4 +1,4 @@
-// Case-study page: only the menu. Nothing here animates.
+// Case-study page: the menu, and the hero video's playback.
 const masthead = document.querySelector('[data-masthead]');
 const menuBtn = document.querySelector('[data-menu]');
 if (masthead && menuBtn) {
@@ -12,21 +12,13 @@ if (masthead && menuBtn) {
   });
 }
 
-// Matchday screen recording (README, Placeholders). Empty until supplied.
-// When set, the still becomes the poster of a video that plays on a click:
-// motion only on a clear action, never a decorative loop.
-const fig = document.querySelector('[data-recording]');
-const rec = fig?.dataset.recording?.trim();
-if (fig && rec) {
-  const still = fig.querySelector('img');
-  const v = document.createElement('video');
-  v.src = new URL(rec, document.baseURI).href;
-  v.poster = still.currentSrc || still.src;
-  v.controls = true;
-  v.playsInline = true;
-  v.preload = 'none';
-  v.width = 390; v.height = 844;
-  v.setAttribute('aria-label', 'Matchday screen recording');
-  v.className = 'cs__video';
-  still.replaceWith(v);
+// Hero video: it autoplays muted and loops (the brief asks for that here),
+// but only while it is on screen, so it costs nothing once scrolled past.
+// Reduced motion was already handled inline: no autoplay, poster, controls.
+const hero = document.querySelector('[data-hero-video]');
+if (hero && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) hero.play().catch(() => {});
+    else hero.pause();
+  }).observe(hero);
 }

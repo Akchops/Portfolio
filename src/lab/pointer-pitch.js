@@ -26,13 +26,21 @@ export async function mount(stage) {
   const img = stage.querySelector('.pp__still');
   try { await img.decode(); } catch { return; }   // no image, nothing to distort
 
+  // Check the WebGL tier before mounting, as the hero does: a software
+  // rasteriser reports as tier 'low', and Canvas 2D is faster than emulated
+  // WebGL, so it takes over (Gate 1).
   const caps = qa.tier2 ? null : probeWebGL({ allowSoftware: qa.glForce });
-  // A software rasteriser reports as tier 'low': Canvas 2D is faster than
-  // emulated WebGL, so it takes over (Gate 1).
-  // The texture is uploaded straight from the <img>: UNPACK_FLIP_Y_WEBGL
-  // applies to image elements but is ignored for ImageBitmap uploads, which
-  // would leave the screenshot upside down.
-  const tier = (caps && caps.tier !== 'low' && mountGL(stage, img)) || mountCanvas(stage, img);
+  const webgl = !!caps && caps.tier !== 'low';
+  // The texture goes up as an ImageBitmap: decoded off the main thread and
+  // uploaded without the GPU read-back that an <img> upload can force. Its
+  // rows arrive top-first (UNPACK_FLIP_Y_WEBGL does not apply to bitmaps), so
+  // the shader flips V when it samples; the <img> fallback is uploaded the
+  // same way, unflipped, so both paths match.
+  let source = img;
+  if (webgl && 'createImageBitmap' in window) {
+    try { source = await createImageBitmap(img); } catch { source = img; }
+  }
+  const tier = (webgl && mountGL(stage, source, img)) || mountCanvas(stage, img);
   if (tier) stage.dataset.tier = tier;
 }
 
@@ -124,6 +132,11 @@ uniform vec2  uDir;      // damped unit direction of travel, UV space, y up
 uniform float uActive;   // 0..1, eases in when the pointer arrives, out when it leaves
 uniform vec3  uEmber;    // #FF4D1C as 0..1 rgb
 
+// The texture is stored top row first (uploaded unflipped, see mount()), while
+// vUv runs bottom to top. Flipping V here is what keeps the screenshot upright,
+// whichever source the upload used.
+vec4 tex(vec2 uv) { return texture2D(uTex, vec2(uv.x, 1.0 - uv.y)); }
+
 void main() {
   // Offset from the pointer in aspect-corrected units (x scaled by the aspect)
   // so the lens is a circle, not an ellipse stretched by the canvas shape.
@@ -154,9 +167,9 @@ void main() {
   vec2 dir = d > 0.0001 ? (p / d) / vec2(uAspect, 1.0) : vec2(0.0);   // guarded: no NaN at the centre
   float ca = fall * (0.0015 + uSpeed * 0.006);
   vec3 col = vec3(
-    texture2D(uTex, uv + dir * ca).r,
-    texture2D(uTex, uv).g,
-    texture2D(uTex, uv - dir * ca).b
+    tex(uv + dir * ca).r,
+    tex(uv).g,
+    tex(uv - dir * ca).b
   );
 
   // Ember duotone inside the lens: luminance (Rec. 709 weights) remapped from
@@ -169,7 +182,7 @@ void main() {
   gl_FragColor = vec4(mix(col, duo, clamp(tint, 0.0, 1.0)), 1.0);
 }`;
 
-function mountGL(stage, img) {
+function mountGL(stage, source, img) {
   const canvas = document.createElement('canvas');
   canvas.className = 'pp__canvas';
   canvas.setAttribute('aria-hidden', 'true');
@@ -198,8 +211,10 @@ function mountGL(stage, img) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);   // image origin is top-left, GL's is bottom-left
-  try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img); }
+  // Unflipped on purpose: an ImageBitmap ignores this flag, so the <img>
+  // fallback must match it. The shader's tex() does the flip.
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+  try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source); }
   catch { return null; }
 
   const loc = {};

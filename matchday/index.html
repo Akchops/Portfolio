@@ -38,13 +38,16 @@
         <h1 class="cs__title">Matchday: a football tracker built around the player's position</h1>
         <p class="cs__lead">Most match trackers assume every player is a striker and count goals and assists. Matchday starts with the player's position and scores what matters for that role.</p>
       </div>
-      <!-- Hero visual: still of screenshot 1 until the screen recording is supplied.
-           To add the recording, put the file in public/placeholders/ and set
-           data-recording, e.g. data-recording="../placeholders/matchday-recording.mp4".
-           It then plays on click (controls, no autoplay), with this still as its poster. -->
-      <figure class="cs__hero" data-recording="">
-        <img src="/placeholders/matchday-1.png" width="390" height="844" fetchpriority="high"
-             alt="Matchday app screen (placeholder until the demo-data screenshot is supplied)">
+      <!-- Hero: the Matchday brag video, muted and looping. Reduced-motion
+           visitors get the still poster and controls instead (inline script
+           below runs before playback can start). -->
+      <figure class="cs__hero">
+        <div class="phone">
+          <video class="phone__screen" src="/media/matchday-brag-1.mp4" poster="/media/matchday-brag-1.jpg"
+                 width="720" height="1280" autoplay muted loop playsinline preload="auto" data-hero-video
+                 aria-label="Matchday promo: who it is for, every match rated for the player's position, and the academy side with squads and team picking"></video>
+          <script>(function (v) { if (matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.autoplay = false; v.pause(); v.preload = 'none'; v.controls = true; } })(document.currentScript.previousElementSibling)</script>
+        </div>
       </figure>
     </header>
 
@@ -61,6 +64,32 @@
           </tbody>
         </table>
       </div>
+    </section>
+
+    <section class="cs__block" aria-labelledby="screens-title">
+      <h2 id="screens-title" class="cs__h2">Screens</h2>
+      <ol class="gallery" role="list">
+        <li><figure class="gallery__item">
+          <div class="phone"><img class="phone__screen" src="/placeholders/matchday-1.png" width="390" height="844" loading="lazy"
+               alt="Matchday calendar for the demo player Alex, goalkeeper: the November month grid with match days marked, and the next match, against Vale FC, counting down."></div>
+          <figcaption>Calendar: every fixture on one screen, with the next match counting down.</figcaption>
+        </figure></li>
+        <li><figure class="gallery__item">
+          <div class="phone"><img class="phone__screen" src="/placeholders/matchday-2.png" width="390" height="844" loading="lazy"
+               alt="Matchday matches list: a countdown to the next match, two past matches waiting for a result, and the upcoming fixtures for November."></div>
+          <figcaption>Matches: results waiting to be logged, and the upcoming list.</figcaption>
+        </figure></li>
+        <li><figure class="gallery__item">
+          <div class="phone"><img class="phone__screen" src="/placeholders/matchday-3.png" width="390" height="844" loading="lazy"
+               alt="Matchday stats in the goalkeeper view for the demo player Alex: an average match score of 74 out of 100, saves, clean sheets and a bar chart of recent match scores."></div>
+          <figcaption>Stats, goalkeeper view: a 0 to 100 match score with the breakdown behind it.</figcaption>
+        </figure></li>
+        <li><figure class="gallery__item">
+          <div class="phone"><img class="phone__screen" src="/placeholders/matchday-4.png" width="390" height="844" loading="lazy"
+               alt="Matchday AI coach: a greeting offering to write a training session or watch a clip, with suggestions such as improving diving and handling crosses."></div>
+          <figcaption>AI coach: drill sessions and short-clip feedback.</figcaption>
+        </figure></li>
+      </ol>
     </section>
 
     <section class="cs__block" aria-labelledby="feat-title">
@@ -92,11 +121,6 @@
       <h2 id="status-title" class="cs__h2">Status</h2>
       <p class="status">Live as a web app and free to use. Not yet in the App Store or Play Store.</p>
       <p class="cs__live"><a href="https://akchops.github.io/football-app/" target="_blank" rel="noopener noreferrer">akchops.github.io/football-app<span class="sr-only"> (opens in a new tab)</span></a></p>
-      <ul class="shots" aria-label="Screens">
-        <li><img src="/placeholders/matchday-2.png" width="390" height="844" loading="lazy" alt="Matchday app screen (placeholder 2 of 4)"></li>
-        <li><img src="/placeholders/matchday-3.png" width="390" height="844" loading="lazy" alt="Matchday app screen (placeholder 3 of 4)"></li>
-        <li><img src="/placeholders/matchday-4.png" width="390" height="844" loading="lazy" alt="Matchday app screen (placeholder 4 of 4)"></li>
-      </ul>
     </section>
 
     <section class="cs__cta" aria-label="Book a call">

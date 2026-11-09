@@ -303,7 +303,18 @@ button { font: inherit; color: inherit; }
 .card__media { position: relative; overflow: hidden; }
 .card__media img { width: 100%; height: 100%; object-fit: cover; }
 .card__media--phone { padding: clamp(20px, 3vw, 40px); display: grid; place-items: center; }
-.card__media--phone img { width: min(100%, 260px); height: auto; border-radius: 22px; border: 1px solid var(--ink); }
+/* A framed phone shape for Matchday media: an Ink bezel with an Ash outline,
+   so it reads on an Ash card and on the Ink page alike. Matchday's own
+   colours stay inside the screen. */
+.phone {
+  position: relative;
+  padding: 7px;
+  background: var(--ink);
+  border: 1px solid var(--ash);
+  border-radius: 34px;
+}
+.phone__screen { display: block; width: 100%; height: auto; border-radius: 27px; background: var(--ink); }
+.card__media--phone .phone { width: min(100%, 260px); }
 .card__media--wide img { aspect-ratio: 16 / 10; }
 .card__media--lens { display: grid; place-items: center; padding: clamp(12px, 2vw, 24px); }
 .card__media--lens img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
@@ -322,6 +333,17 @@ button { font: inherit; color: inherit; }
 .card__line { max-width: 52ch; color: var(--bone); }
 .card__url { font: 500 1.125rem/1.3 var(--font-mono); }
 .card__link--ext { color: var(--ember); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+/* A second, external link inside a card whose title is the stretched link:
+   lifted above the stretched link's overlay so it stays its own target. */
+.card__ext {
+  position: relative; z-index: 2;
+  display: inline-block; padding: 10px 0;
+  font: 500 1rem/1.3 var(--font-mono);
+  color: var(--ember);
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em;
+}
+.card__ext:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
+.card:has(.card__ext:focus-visible) { outline: none; }
 .card__caption { font-size: 0.9375rem; color: var(--smoke); }
 /* Smoke on Ash is 4.37:1, under AA for small text, so labels sitting on an
    Ash surface use Bone. Smoke stays for labels on Ink (4.86:1). */
@@ -338,7 +360,7 @@ button { font: inherit; color: inherit; }
 }
 @media (max-width: 599px) {
   .card--matchday, .card--kessel { grid-template-columns: minmax(0, 1fr); }
-  .card__media--phone img { width: min(100%, 220px); }
+  .card__media--phone .phone { width: min(100%, 220px); }
 }
 
 /* Baxter */
@@ -348,7 +370,6 @@ button { font: inherit; color: inherit; }
   gap: clamp(28px, 5vw, 80px);
   align-items: center;
   margin-top: clamp(96px, 12vw, 180px);
-  scroll-margin-top: calc(var(--masthead-h) + 24px);
 }
 .baxter__media img { border-radius: 6px; border: 1px solid var(--ash); }
 .baxter__body { display: grid; gap: 18px; }
@@ -492,9 +513,9 @@ button { font: inherit; color: inherit; }
   position: relative;
   /* Explicit width: a percentage here would be circular inside the auto
      grid column and collapse to zero. */
-  width: calc(min(78svh, 760px) * 390 / 844);
+  width: calc(min(78svh, 760px) * var(--pp-ar, 390 / 844));
   max-width: 100%;
-  aspect-ratio: 390 / 844;
+  aspect-ratio: var(--pp-ar, 390 / 844);
   border-radius: 28px;
   overflow: hidden;
   border: 1px solid var(--ash);
@@ -507,17 +528,18 @@ button { font: inherit; color: inherit; }
 @media (max-width: 767px) {
   .pp { grid-template-columns: minmax(0, 1fr); justify-items: center; }
   .pp .exp__text { justify-self: stretch; }
-  .pp__stage { width: min(72vw, calc(62svh * 390 / 844)); }
+  .pp__stage { width: min(72vw, calc(62svh * var(--pp-ar, 390 / 844))); }
 }
 @media (prefers-reduced-motion: reduce) {
   .pp__stage { touch-action: auto; }
 }
 
 /* Kessel */
-.kessel { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(32px, 4vw, 56px); scroll-margin-top: var(--masthead-h); }
+.kessel { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(32px, 4vw, 56px); }
 .kessel__head { display: grid; gap: 14px; max-width: 70ch; }
 .kessel__note { color: var(--bone); max-width: var(--measure); }
 .kessel__lead { font: 600 var(--fs-h3)/1.1 var(--font-display); letter-spacing: -0.02em; }
+.kessel__demo { margin-top: -4px; }
 .kessel__fine { text-transform: none; letter-spacing: 0.02em; max-width: var(--measure); }
 
 /* Teardown, base (no JS / reduced motion): a column of numbered stills with
@@ -708,8 +730,7 @@ html:not(.js) .ctl, html:not(.js) .ap__scene, html:not(.js) .fo__scene { display
 .cs__title { font: 700 clamp(2.25rem, 1.2rem + 4.4vw, 6rem)/0.95 var(--font-display); letter-spacing: -0.035em; }
 .cs__intro { display: grid; gap: 24px; }
 .cs__lead { font-size: var(--fs-lead); line-height: 1.45; max-width: 44ch; }
-.cs__hero { justify-self: center; width: min(100%, 360px); }
-.cs__hero img { border-radius: 28px; border: 1px solid var(--ash); }
+.cs__hero { justify-self: center; width: min(100%, 340px); }
 .cs__block { padding: var(--section-y) 0 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 3vw, 40px); }
 .cs__h2 { font: 700 var(--fs-h3)/1 var(--font-display); letter-spacing: -0.02em; }
 .pos { width: 100%; max-width: 900px; border-collapse: collapse; }
@@ -727,16 +748,19 @@ html:not(.js) .ctl, html:not(.js) .ap__scene, html:not(.js) .fo__scene { display
 .status { font: 600 var(--fs-lead)/1.4 var(--font-display); max-width: 40ch; }
 .cs__live { font: 500 1.125rem/1.4 var(--font-mono); overflow-wrap: anywhere; }
 .cs__live a { color: var(--ember); }
-.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); padding: 0; list-style: none; max-width: 1100px; }
-.shots img { border-radius: 22px; border: 1px solid var(--ash); }
+/* Screenshot gallery: four framed phones, each with its caption. */
+.gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); padding: 0; list-style: none; }
+.gallery__item { display: grid; gap: 14px; align-content: start; }
+.gallery__item figcaption { color: var(--bone); font-size: 0.9375rem; line-height: 1.45; max-width: 34ch; }
 .cs__cta { padding: var(--section-y) 0; display: grid; gap: 28px; justify-items: start; }
+@media (max-width: 1099px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 720px; } }
 @media (max-width: 899px) {
   .cs__head { grid-template-columns: minmax(0, 1fr); }
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 599px) {
-  .shots { grid-template-columns: minmax(0, 1fr); justify-items: center; }
-  .shots img { max-width: 280px; }
+  .gallery { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .gallery__item { width: min(100%, 300px); }
   .pos tbody th { width: auto; }
 }
 
@@ -745,4 +769,3 @@ html:not(.js) .ctl, html:not(.js) .ap__scene, html:not(.js) .fo__scene { display
   .btn, .chip, .hero__cta, .masthead__list { transition-property: background-color, color, border-color, opacity; }
   .btn:active, .chip:active { transform: none; }
 }
-.cs__video { display: block; width: 100%; height: auto; border-radius: 28px; border: 1px solid var(--ash); background: var(--ash); }

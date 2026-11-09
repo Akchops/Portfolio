@@ -69,8 +69,13 @@
       <ul class="work__grid" role="list">
         <li class="card card--matchday">
           <figure class="card__media card__media--phone">
-            <img src="/placeholders/matchday-1.png" width="390" height="844" loading="lazy"
-                 alt="Matchday app screen (placeholder until the demo-data screenshot is supplied)">
+            <!-- Plays once each time the card scrolls into view and rests on its
+                 end card (src/main.js); reduced motion and no-JS show the poster. -->
+            <div class="phone">
+              <video class="phone__screen" src="/media/matchday-brag-2.mp4" poster="/media/matchday-brag-2.jpg"
+                     width="720" height="1280" muted playsinline preload="none" data-inview-video
+                     aria-label="Matchday promo: most apps count goals, keepers don't score; every match rated for the position you actually play, with the demo player's match score and stats"></video>
+            </div>
           </figure>
           <div class="card__body">
             <p class="tag">Live web app</p>
@@ -113,6 +118,7 @@
           <div class="card__body">
             <p class="tag">Concept demo · fictional brand</p>
             <h3 class="card__title"><a class="card__link" href="#kessel">Kessel Optics</a></h3>
+            <p class="card__url"><a class="card__ext" href="https://akchops.github.io/orrin/" target="_blank" rel="noopener noreferrer">View the live demo<span class="sr-only"> (opens in a new tab)</span></a></p>
           </div>
         </li>
       </ul>
@@ -224,7 +230,9 @@
           <h3 id="pp-title" class="exp__title">Pointer Pitch</h3>
           <p class="exp__hint" data-pp-hint>Move across the screenshot. On a phone, drag a finger over it.</p>
         </div>
-        <figure class="pp__stage" data-pp>
+        <!-- --pp-ar is matchday-1.png's own width / height, so the stage keeps
+             the screenshot's shape (it sizes the stage to fit the viewport height). -->
+        <figure class="pp__stage" data-pp style="--pp-ar: 390 / 844">
           <!-- Tier 3: always present. Tiers 1 (WebGL) and 2 (Canvas 2D) mount a
                canvas above it after a silent capability probe. -->
           <img class="pp__still" src="/placeholders/matchday-1.png" width="390" height="844" loading="lazy"
@@ -239,6 +247,7 @@
           <h3 id="kessel-title" class="exp__title">Kessel Optics</h3>
           <p class="kessel__note">Kessel Optics is a fictional brand. Every name, figure, date and contact detail below is sample content for the concept.</p>
           <p class="kessel__lead">The same lens, taken apart</p>
+          <p class="kessel__demo"><a class="card__ext" href="https://akchops.github.io/orrin/" target="_blank" rel="noopener noreferrer">View the live demo<span class="sr-only"> (opens in a new tab)</span></a></p>
         </header>
 
         <div class="td">

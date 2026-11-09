@@ -34,6 +34,27 @@ if ('IntersectionObserver' in window) {
   }
 }
 
+/* ---------- Matchday card video ---------- */
+// Plays when the card is in view and rests on its end card when it finishes;
+// it replays the next time the card scrolls back into view. No loop: the
+// motion answers the visitor's scroll and never runs on its own. Reduced
+// motion keeps the poster. preload="none" means nothing downloads until the
+// first play.
+const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+if ('IntersectionObserver' in window) {
+  document.querySelectorAll('[data-inview-video]').forEach((v) => {
+    new IntersectionObserver(([e]) => {
+      if (reduceMQ.matches) return;
+      if (e.intersectionRatio >= 0.6) {
+        if (v.ended) v.currentTime = 0;
+        v.play().catch(() => {});
+      } else if (!e.isIntersecting) {
+        v.pause();
+      }
+    }, { threshold: [0, 0.6] }).observe(v);
+  });
+}
+
 /* ---------- Lazy boot ---------- */
 // Every lazily mounted module is registered here. Several of them change
 // their section's height when they mount (the process and teardown switch to

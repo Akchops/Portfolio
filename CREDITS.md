@@ -29,6 +29,14 @@ repository is used: the teardown, aperture and focus interactions here are
 rebuilt from a description of its layout and interaction patterns. Kessel
 Optics is a fictional brand and is labelled as one on the page.
 
+## Matchday media
+
+| Asset | Source | Used as |
+|---|---|---|
+| `public/media/matchday-brag-1.mp4` and `.jpg` poster | Matchday promo video supplied by Aarav Chopra | Case-study hero. Re-encoded to 720 × 1280 with audio removed; the Academy join code, players' names, coaches' handles and the Setup screen are blurred (`scripts/process-videos.py`). |
+| `public/media/matchday-brag-2.mp4` and `.jpg` poster | Matchday promo video supplied by Aarav Chopra | Work card. Re-encoded to 720 × 1280 with audio removed. |
+| `public/placeholders/matchday-1.png` to `-4.png` | Matchday screenshots of the demo account, supplied by Aarav Chopra | Case-study gallery; screenshot 1 is also the Pointer Pitch surface. |
+
 ## Fonts
 
 All three are self-hosted from [Fontsource](https://fontsource.org) packages

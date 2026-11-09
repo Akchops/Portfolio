@@ -16,8 +16,10 @@ Three signature moments carry it:
    Matchday screenshot. It magnifies, smears along the direction of travel,
    splits colour when moving fast, and turns what it covers Ember.
 
-The Lab also holds the Kessel Optics teardown and two control experiments,
-Aperture and Focus.
+The Lab also holds the Kessel Optics teardown (with a link to the live demo)
+and two control experiments, Aperture and Focus. The Matchday case study
+(`/matchday`) opens on the Matchday promo video and shows four app screens.
+A second promo plays on the Matchday card in Work.
 
 ---
 
@@ -48,7 +50,15 @@ npm run sequence                         # renders the phone frame sequences and
 node scripts/check-sequence.mjs public/seq/floodlights-portrait    # memory/frame budgets
 node scripts/check-sequence.mjs public/seq/floodlights-landscape
 node scripts/make-placeholders.mjs       # regenerates the placeholder images
+python3 -I scripts/process-videos.py <brag-vertical_1.mp4> <brag-vertical_2.mp4>
+                                         # Matchday videos: redact, 720 x 1280, muted, < 3 MB, posters
 ```
+
+The original Matchday videos are not in the repository: the first one's
+original frames show an academy join code and under-14 players' names. Only
+the redacted, compressed output in `public/media/` is committed; the
+redaction boxes and how they were verified are in `scripts/process-videos.py`
+and [`docs/qa/QA.md`](docs/qa/QA.md).
 
 `npm run sequence` drives headless Chromium through `tools/capture.html`,
 which mounts the same `src/hero/scene.js` the desktop runs live. The phone
@@ -90,26 +100,19 @@ The full report, the motion-QA verdict and the evidence images are in
 - Every in-page link, including "Book a call" from the case study, lands
   exactly on its section.
 
-### Open question
-
-**Orrin link.** The QA list includes `akchops.github.io/orrin`, but the
-sitemap gives it no place, so the site does not link to it. Options: (a) add
-a "See the full concept" link in the Kessel section, (b) link it from the
-Kessel card instead, or (c) leave it unlinked.
-
 ---
 
 ## Placeholders
 
-Four things are placeholders. Each is replaced by swapping a file or adding
-a value. No code changes are needed.
+Three things are placeholders or swappable. Each is replaced by swapping a
+file. No code changes are needed. The Matchday videos and the Cal.com link
+are supplied and final.
 
-| # | Placeholder | Where | How to replace |
+| # | Item | Where | How to replace |
 |---|---|---|---|
 | 1 | **Headshot** | `public/placeholders/headshot.svg` (neutral silhouette, 4:5) | Swap the file for the real portrait, keeping the file name and a 4:5 ratio. Then change its alt text in `index.html` from "Portrait of Aarav Chopra (placeholder)" to "Portrait of Aarav Chopra". |
-| 2 | **Matchday screen recording** | Not supplied. The case-study hero shows screenshot 1 as a still. | Put the video in `public/placeholders/` and set the value `data-recording="../placeholders/<file>.mp4"` on the `cs__hero` figure in `matchday/index.html`. The still becomes its poster, and the video plays on click (controls, no autoplay or loop). |
-| 3 | **Matchday screenshots** | `public/placeholders/matchday-1.png` … `matchday-4.png` (390 × 844, each labelled "Matchday screenshot: replace with demo data") | Swap the four files for screenshots with **demo data only**: no real names, photos or match data, and no identifiable child. Screenshot 1 appears in three places: the Work card, the case-study hero and the Pointer Pitch surface. Then drop "(placeholder…)" from the alt texts in `index.html` and `matchday/index.html`. |
-| 4 | **Baxter visual** | `public/placeholders/baxter.png` (1600 × 1000, neutral) | Swap the file for a screenshot of the app with demo data only. No device names, network details, family members, phone numbers, account identifiers or home-automation details. Then update its two alt texts in `index.html`. |
+| 2 | **Baxter visual** | `public/placeholders/baxter.png` (1600 × 1000, neutral) | Swap the file for a screenshot of the app with demo data only. No device names, network details, family members, phone numbers, account identifiers or home-automation details. Then update its two alt texts in `index.html`. |
+| 3 | **Matchday screenshots** (replace only if the demo data changes) | `public/placeholders/matchday-1.png` (calendar), `-2` (matches list), `-3` (goalkeeper stats), `-4` (AI coach): supplied screenshots of the demo account "Alex" | Swap a file for a new screenshot of the same screen, demo account only. Never the Setup screen (date of birth) or an Academy screen (join code). If a new file's width or height differs, update that image's `width`/`height` attributes; for `matchday-1.png` also update `--pp-ar` on the Pointer Pitch stage in `index.html`. Its alt text describes what the screen shows, so update it if the content changes. |
 
 ---
 
@@ -195,9 +198,11 @@ separately below so it can be reviewed.
 
 **Work, Services, About**
 
-20. **Card lines.** The Matchday card reuses the case-study title as its
-    line: "A football tracker built around the player's position." The brief
-    gave no line for the Kessel card, so it has none.
+20. **Card lines.** The Matchday card keeps the line it had, taken from
+    the case-study title: "A football tracker built around the player's
+    position." The brief gives no line for the Kessel card; it carries the
+    "Concept demo · fictional brand" label and the "View the live demo"
+    link.
 21. **The Prayatn card has no image.** None was supplied, and I didn't
     screenshot a charity site that may show real people, including children.
     The visible link `prayatnonline.org` is the real link (new tab,
@@ -232,20 +237,65 @@ separately below so it can be reviewed.
     asks to remove. On touch the stage takes the finger directly
     (`touch-action: none`) and is capped at 62% of the screen height, so
     there is room to scroll beside it.
+29. **Pointer Pitch uploads `matchday-1.png` as an `ImageBitmap`,** decoded
+    off the main thread, with no pixel read-back. A bitmap ignores WebGL's
+    flip-on-upload flag, so the texture goes up unflipped on every path
+    (bitmap or the `<img>` fallback) and the shader flips V when it samples.
+    The WebGL tier is checked before mounting, as in the hero; a software
+    renderer gets the Canvas 2D tier.
+30. **"View the live demo"** (`akchops.github.io/orrin`, new tab) sits under
+    the teardown's heading and on the Kessel card. On the card it is lifted
+    above the card's own link, so it opens the demo instead of scrolling to
+    the teardown. "Concept demo · fictional brand" stays visible in both
+    places.
+
+**Matchday media**
+
+31. **Video 1 is redacted, as you chose.** Its original frames show an
+    Academy screen with its join code (about 8–10 s), and under-14 players'
+    names with ratings (about 10–18 s). The published file keeps all 24.5 s
+    and blurs the join code, every player name, the coaches' handles and the
+    Setup screen whenever they are on screen. The demo account and the
+    consent card about it stay sharp, as do team names. The blur boxes are
+    in `scripts/process-videos.py`. How they were verified is in
+    `docs/qa/QA.md`: OCR on every frame, a sharpness measure on every located
+    name, and a by-eye review of every transition. Neither the code nor any
+    name appears anywhere in the repository.
+32. **Both videos are 720 × 1280 H.264, audio removed,** two-pass at about
+    880 kb/s (2.8 MB each), with fast start so playback can begin early.
+    Posters: video 1 at 6.2 s ("Every match, rated for your position."),
+    video 2 at 2.7 s. The KEEPERS wordmark is fully drawn from 2.2 s to
+    3.1 s; 2.7 s is the middle of that hold.
+33. **The Work card video plays when the card is in view** (60% visible),
+    pauses when it leaves, rests on its end card when it finishes, and
+    replays the next time the card comes into view. It never loops on its
+    own, keeping to "no decorative looping". Reduced motion keeps the poster.
+    Nothing downloads until it first plays.
+34. **The case-study hero autoplays, muted and looping,** as the brief asks,
+    and pauses while scrolled off screen. Its `autoplay` attribute is in the
+    HTML, so it also plays without JavaScript. For reduced motion, a short
+    inline script right after the element removes autoplay before playback
+    can start and shows controls over the still poster.
+35. **One phone frame for all Matchday media:** an Ink bezel with an Ash
+    outline, so it reads on an Ash card and on the Ink page. Matchday's own
+    colours stay inside the screen.
+36. **Every in-page link lands 64 px from the top,** directly under the
+    masthead. The Baxter and Kessel sections had extra scroll margins from
+    the first build; I removed them so every route matches.
 
 **Booking**
 
-29. **Cal.com is an inline embed** (dark theme, Ember brand colour), loaded
+37. **Cal.com is an inline embed** (dark theme, Ember brand colour), loaded
     only as the Book section approaches. "Email to book" is visible until
     Cal.com reports the page ready. If the page fails, or isn't ready within
     8 s, the embed is removed and the email button stays.
-30. **In-page links settle before they scroll.** The process and teardown
+38. **In-page links settle before they scroll.** The process and teardown
     sections grow when they lazily mount, and a GSAP ScrollTrigger refresh
     cancels a smooth scroll. So an in-page link (or a load arriving with a
     hash, like the case study's `../#book`) first mounts those modules
     above its target, then scrolls, and re-aligns once if anything moved.
     Focus moves to the target.
-31. **`og:image` is a relative path.** Set it to an absolute URL once the
+39. **`og:image` is a relative path.** Set it to an absolute URL once the
     domain is known.
 
 ### Copy I wrote (please review)
@@ -264,8 +314,9 @@ Everything below is mine, not from the brief:
 - Kessel framing: "Kessel Optics is a fictional brand. Every name, figure,
   date and contact detail below is sample content for the concept.", headings
   "The three lenses", "Dates" and "Contact", and the sample notes under each.
-- Matchday page headings "What each position scores", "Features", "The build"
-  and "Status", plus the table header "Scored on". The build facts are split
+- Matchday page headings "What each position scores", "Screens", "Features",
+  "The build" and "Status", plus the table header "Scored on". The video
+  descriptions read by screen readers (`aria-label` on both videos). The build facts are split
   into tiles that keep the brief's qualifiers ("About 10 weeks of build",
   "Roughly 27,000 lines of TypeScript").
 - All alt text.
