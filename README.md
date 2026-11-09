@@ -80,25 +80,22 @@ The full report, the motion-QA verdict and the evidence images are in
   no horizontal overflow.
 - Reduced motion, no WebGL and no JS all pass: every piece of content is
   present on each path.
-- First load is 14.2 kB gzip (limit 100 kB). The phone frame sequences are
+- First load is 15.0 kB gzip (limit 100 kB). The phone frame sequences are
   within the 60 MB memory ceiling.
 - Throttled emulation holds about 60 fps (4× CPU, p95 59.9 fps, no frame
   over 32 ms). Real-device testing is still to do.
-- **Console and network are clean except for one thing:**
-  `cal.com/aaravchopra` returns 404 on Cal.com, so the embed's request
-  fails. The page handles it by falling back to "Email to book". The
-  immersive-motion-qa verdict is FAIL until that link exists.
+- Console and network are clean on every capture: 0 errors, 0 failed
+  requests. The booking embed loads from `cal.com/aarav-orevjw`, which
+  returns 200. The immersive-motion-qa verdict is **PASS**.
+- Every in-page link, including "Book a call" from the case study, lands
+  exactly on its section.
 
-### Open questions
+### Open question
 
-1. **Cal.com username.** `cal.com/aaravchopra` (and `aarav-chopra`,
-   `aaravchopra1202`) return 404. Either create the booking page at that
-   address, or tell me the correct username. It is one constant in
-   `src/book.js`.
-2. **Orrin link.** The QA list includes `akchops.github.io/orrin`, but the
-   sitemap gives it no place, so the site does not link to it. Options: (a)
-   add a "See the full concept" link in the Kessel section, (b) link it from
-   the Kessel card instead, or (c) leave it unlinked.
+**Orrin link.** The QA list includes `akchops.github.io/orrin`, but the
+sitemap gives it no place, so the site does not link to it. Options: (a) add
+a "See the full concept" link in the Kessel section, (b) link it from the
+Kessel card instead, or (c) leave it unlinked.
 
 ---
 
@@ -242,7 +239,13 @@ separately below so it can be reviewed.
     only as the Book section approaches. "Email to book" is visible until
     Cal.com reports the page ready. If the page fails, or isn't ready within
     8 s, the embed is removed and the email button stays.
-30. **`og:image` is a relative path.** Set it to an absolute URL once the
+30. **In-page links settle before they scroll.** The process and teardown
+    sections grow when they lazily mount, and a GSAP ScrollTrigger refresh
+    cancels a smooth scroll. So an in-page link (or a load arriving with a
+    hash, like the case study's `../#book`) first mounts those modules
+    above its target, then scrolls, and re-aligns once if anything moved.
+    Focus moves to the target.
+31. **`og:image` is a relative path.** Set it to an absolute URL once the
     domain is known.
 
 ### Copy I wrote (please review)

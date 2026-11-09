@@ -9,12 +9,13 @@ folder.
 | Gate | Result | Evidence |
 |---|---|---|
 | Signature moments at 320, 390, 768, 1280, 1920 px | **Verified.** Hero, Process and Pointer Pitch work at every width. 320–768 use the frame sequence; 1280 and 1920 run the live Three.js scene (SwiftShader, `?gl=force`). Pointer Pitch runs WebGL at every width, tested with touch below 1024 px and mouse above. No horizontal overflow at any width (`scrollWidth` equals the viewport width). | `signatures-5-widths.jpg` (per row: hero start, hero end, process mid-scrub, Pointer Pitch under the pointer) |
-| Console and network clean | **Not met, for one external reason.** Zero page errors. Every console error and failed request is the same: `app.cal.com/aaravchopra/embed…` returns 404, because `cal.com/aaravchopra` does not exist on Cal.com yet. The only warning is Cal.com's own `Permissions-Policy` header. Nothing else errors. | `motion-qa.mjs` report: 54/54 captured, 8 console errors, 8 failed requests, all that one URL |
+| Console and network clean | **Pass.** 0 console errors, 0 page errors, 0 failed requests across all 54 captures and the three fallback passes. The only warning is Cal.com's own `Permissions-Policy` header ("Unrecognized feature: 'bluetooth'"), sent from inside its booking iframe. It is not ours and not an error. | `motion-qa.mjs` report: 54/54 captured, exit 0 |
 | Reduced motion | **Pass.** The static stand frame with the name fully resolved; the process as a vertical list; the teardown as a column of stills with every caption; Pointer Pitch as the still image. No content lost. | `fallbacks-reduced-motion-no-webgl.jpg` (top row) |
 | No WebGL | **Pass.** Phones keep the frame sequence, which needs no WebGL. Desktop shows the static frame. Pointer Pitch drops to Canvas 2D. No console errors from the probe. | same file, bottom row |
 | No JS | **Pass.** Every heading, paragraph, image, table and link is present; nothing is blank. Visible text is 4,696 characters, against 4,684 with JS. | `fallback-no-js-fullpage.jpg` |
-| External links | prayatnonline.org **200**. akchops.github.io/football-app **200**. akchops.github.io/orrin **200** (tested; the site does not link to it, see the open questions in the README). cal.com/aaravchopra **404**. In the browser, the Prayatn visible link and the card body both open prayatnonline.org in a new tab with no `window.opener`. The football-app link opens in a new tab with `noopener noreferrer`. | — |
-| First-load budget | **14.2 kB gzip** (limit 100 kB): HTML 6.4, CSS 6.1, JS 1.7. Three.js (193 kB gzip) and GSAP + ScrollTrigger (45 kB) are code-split and lazy. | `npm run budget` |
+| External links | cal.com/aarav-orevjw **200**: it redirects to its 30-minute event, the embed URL `app.cal.com/aarav-orevjw/embed` returns 200 too, and in the browser the inline embed reports ready in ~5 s at 1280 and 390 px, after which the "Email to book" fallback steps aside. prayatnonline.org **200**. akchops.github.io/football-app **200**. akchops.github.io/orrin **200** (tested; the site does not link to it, see the open question in the README). In the browser, the Prayatn visible link and the card body both open prayatnonline.org in a new tab with no `window.opener`. The football-app link opens in a new tab with `noopener noreferrer`. | — |
+| In-page navigation | **Pass.** "Book a call" (masthead, hero, phone sticky CTA), the nav and footer links, the Work cards and the case study's cross-page "Book a call" (`../#book`) all land exactly on their section under the masthead, at 1280, 1920 and 390 px and with reduced motion. Scrolling starts ~0.2 s after the click. Focus moves to the target. | `main.js` in-page links |
+| First-load budget | **15.0 kB gzip** (limit 100 kB): HTML 6.4, CSS 6.2, JS 2.4. Three.js (193 kB gzip) and GSAP + ScrollTrigger (45 kB) are code-split and lazy. | `npm run budget` |
 | 60 fps, mid-range Android | **Emulated pass, real hardware not tested.** At 4× CPU throttling, 390 and 320 px phone emulation, scrolling at 1.5 px/ms: hero, process and teardown all hold p95 59.9 fps, with no frame over 32 ms. This measures main-thread frame production; it is not a substitute for a real device. | `perf` run, below |
 | glTF / textures | Ball: meshopt (`EXT_meshopt_compression`) + KTX2 (`KHR_texture_basisu`). Turf: KTX2. | `scripts/build-assets.mjs` |
 | Contrast | Bone/Ink 16.0, Bone/Ash 14.4, Smoke/Ink 4.86, Ember/Ink 5.9, Ink/Ember 5.9. Smoke on Ash (4.37) is not used for text. Hero name over the scene: worst 3.51:1 (large text, needs 3:1). Hero line: on an Ink plate, 16:1. | measured from renders |
@@ -22,11 +23,13 @@ folder.
 ## immersive-motion-qa verdict
 
 ```
-VERDICT: FAIL
-SIGNATURE: none
-REASON: The matrix is not clean. 8 console errors and 8 failed requests across the 54 captures and fallback passes, every one of them https://app.cal.com/aaravchopra/embed (HTTP 404): the Cal.com username in the brief does not exist. The signature checks themselves are met: category 1, camera travel from the stand to the centre circle (Floodlights, #top); category 4, a scroll-scrubbed 49-frame sequence on phones (#top, 320 to 768 px); category 3, a shader pointer distortion (Pointer Pitch, #lab), verified at 320 px.
-EVIDENCE: qa-run/report.json from motion-qa.mjs on the production build: 54/54 captured, 0 page errors; failedRequests and consoleErrors contain only the Cal.com 404. signatures-5-widths.jpg.
-REQUIRED TO PASS: A Cal.com booking page that exists at cal.com/aaravchopra (or the correct username in src/book.js), then a re-run of scripts/motion-qa.mjs.
+VERDICT: PASS
+SIGNATURE: 1 — camera travel through a night stadium, from a seat in the stand over the advertising boards to the ball on the centre spot — Floodlights, #top (live Three.js from 1024 px; on phones and tablets the same move as category 4, a 49-frame sequence scrubbed by scroll; plus category 3, Pointer Pitch, a raw-WebGL shader lens under the pointer or finger, #lab) — signatures-5-widths.jpg: hero start vs end at all five widths, Pointer Pitch in the last column; check-sequence.mjs PASS
+MATRIX: 54/54 captured, console clean, network clean
+REDUCED MOTION: static stand frame with the name fully resolved, the process as a vertical list of all four stages, the teardown as a column of captioned stills, Pointer Pitch as its still image; every fact present (fallbacks-reduced-motion-no-webgl.jpg, top row)
+NO WEBGL: phones keep the frame sequence (it needs no WebGL), desktop shows the tier-3 static frame, Pointer Pitch renders tier 2 (Canvas 2D); console clean (same file, bottom row)
+NO JS: every heading, paragraph, image, table and link present; 4,696 characters of visible text (fallback-no-js-fullpage.jpg)
+320px: the hero sequence scrubs from the stand to the ball, the process track slides one stage per beat, and Pointer Pitch follows a touch drag on WebGL; captured at 320 x 568 (signatures-5-widths.jpg, row 320)
 ```
 
 ## Delivery reports
@@ -77,7 +80,7 @@ TIER 3        <img class="pp__still"> in the HTML unconditionally; reduced motio
 PROBE         src/probe.js: constructor check, try/catch, failIfMajorPerformanceCaveat, context
               released, software renderers tiered 'low'. Silent on no-WebGL (motion-qa no-webgl pass:
               no probe errors).
-BUDGET        14.2 kB gzip first load, limit 100 kB (scripts/first-load-budget.mjs).
+BUDGET        15.0 kB gzip first load, limit 100 kB (scripts/first-load-budget.mjs).
 GLSL          pointer-pitch.js FRAG, scene.js glare / beam / contact-shadow shaders: every term commented.
 TRAPS         Flat-top falloff avoided (compact x^3 kernels everywhere); banding dithered in the
               glare; no procedural noise; no clamp near a normal.
