@@ -86,19 +86,24 @@ URL switches for testing (not linked anywhere):
 The full report, the motion-QA verdict and the evidence images are in
 [`docs/qa/QA.md`](docs/qa/QA.md). In short:
 
-- All three signature moments work at 320, 390, 768, 1280 and 1920 px, with
-  no horizontal overflow.
+- All three signature moments work at 320, 390, 768, 1280 and 1920 px. No
+  horizontal scroll at any of those widths, on the home page or the case
+  study.
 - Reduced motion, no WebGL and no JS all pass: every piece of content is
-  present on each path.
-- First load is 15.0 kB gzip (limit 100 kB). The phone frame sequences are
-  within the 60 MB memory ceiling.
-- Throttled emulation holds about 60 fps (4× CPU, p95 59.9 fps, no frame
-  over 32 ms). Real-device testing is still to do.
-- Console and network are clean on every capture: 0 errors, 0 failed
-  requests. The booking embed loads from `cal.com/aarav-orevjw`, which
-  returns 200. The immersive-motion-qa verdict is **PASS**.
-- Every in-page link, including "Book a call" from the case study, lands
-  exactly on its section.
+  present on each path. Forced WebGL context loss falls back cleanly on both
+  canvases.
+- First load is 15.5 kB gzip (limit 100 kB). Phone frame memory peaks at
+  46.5 MB, under the 60 MB ceiling.
+- 60 fps is emulated, not measured on a phone: at 4× CPU throttle with GPU
+  compositing, the hero, process and teardown hold p95 59.5–59.9 fps at 320,
+  390 and 1280 px. Real-device testing is still to do.
+- Console and network are clean: 0 errors, 0 failed requests. The only
+  warning comes from inside the Cal.com iframe (its own Permissions-Policy
+  header). All four external links return 200 and open in a new tab.
+- Both videos are under 3 MB, muted, inline, 720 × 1280, with posters.
+  Video 1's redaction is verified frame by frame.
+- Every in-page link lands exactly on its section, 64 px from the top, with
+  focus on the target. The immersive-motion-qa verdict is **PASS**.
 
 ---
 
@@ -133,7 +138,7 @@ separately below so it can be reviewed.
    anchors. `/matchday` is the only separate page.
 3. **Links between pages are relative** (`matchday/`, `../#book`) and the
    Vite base is relative, so the site can be hosted under any path.
-4. **No framework.** Vanilla JS and CSS keep the eager script at 1.7 kB gzip.
+4. **No framework.** Vanilla JS and CSS keep the eager script at 2.5 kB gzip.
    Three.js loads only on desktop's live hero tier. GSAP and ScrollTrigger load
    only for the Process section. Lenis is not used; scroll stays native.
 5. **Fonts are self-hosted** from Fontsource: latin subset, weight axis only,
@@ -163,7 +168,10 @@ separately below so it can be reviewed.
     variable-font weight (260 → 720) with letter-spacing closing up, while
     the floodlight glare burns down. The name is never hidden or blurred; it
     is legible at its thinnest. Reduced motion and no-JS show the resolved
-    weight.
+    weight. The weight moves in 23 steps of 20 units (about 0.3 px of stroke
+    on a phone), not a new value every frame: each new weight is a new font
+    instance to shape and rasterise, and per-frame updates pushed a
+    throttled phone over its frame budget.
 11. **Glare and light shafts** are lighting inside the 3D scene. I applied
     the "no gradients, no neon glow" rule to the UI and CSS, which have
     neither.
@@ -180,7 +188,11 @@ separately below so it can be reviewed.
 15. **Sequence budget.** 49 frames per orientation (portrait 720 × 1280,
     landscape 1280 × 720), two tiers each, plus a small always-resident
     ladder. Peak decoded memory is 46.5–51.8 MB, under the 60 MB mobile
-    ceiling. Verified by `scripts/check-sequence.mjs`.
+    ceiling. Verified by `scripts/check-sequence.mjs`. The phone canvas is
+    sized to the visible crop of a frame at its own resolution, not to the
+    screen: a 540 × 960 frame is copied 1:1 and the compositor scales it,
+    instead of being upscaled to 780 × 1688 on the main thread every frame.
+    Same picture, a third of the pixels to move.
 16. **The positioning line sits on a solid Ink plate,** like a broadcast
     lower third. Over the brightest frames the bare text measured 2.8:1.
     On the plate it is 16:1.

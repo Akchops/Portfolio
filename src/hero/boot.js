@@ -25,12 +25,21 @@ import { probeWebGL, qa } from '../probe.js';
 export async function boot(hero) {
   const name = hero.querySelector('[data-hero-name]');
   const stage = hero.querySelector('.hero__stage');
+  // Weight 260 -> 720 and tracking +0.01em -> -0.035em: the strokes thicken
+  // and the letters close up, the way detail returns to an overexposed frame
+  // as the exposure settles.
+  // Quantised to 23 steps of 20 weight units (about 0.3px of stroke on a
+  // phone). Every new weight is a fresh font instance to shape and rasterise,
+  // and at one per frame that alone pushed a 4x-throttled phone over its
+  // frame budget. The properties are written only when the step changes.
+  const STEPS = 23;
+  let lastStep = -1;
   const setName = (u) => {
-    // Weight 260 -> 720 and tracking +0.01em -> -0.035em: the strokes thicken
-    // and the letters close up, the way detail returns to an overexposed
-    // frame as the exposure settles.
-    const t = smooth(clamp((u - 0.06) / 0.8));
-    name.style.setProperty('--hero-wght', String(Math.round(260 + 460 * t)));
+    const step = Math.round(smooth(clamp((u - 0.06) / 0.8)) * STEPS);
+    if (step === lastStep) return;
+    lastStep = step;
+    const t = step / STEPS;
+    name.style.setProperty('--hero-wght', String(260 + 20 * step));
     name.style.setProperty('--hero-track', `${(0.01 - 0.045 * t).toFixed(4)}em`);
   };
 

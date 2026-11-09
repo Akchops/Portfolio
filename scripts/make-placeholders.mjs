@@ -3,8 +3,10 @@
  * make-placeholders.mjs — renders the placeholder images listed in the README
  * "Placeholders" section. Each one is replaced later by swapping the file.
  *
- *   public/placeholders/matchday-1.png … matchday-4.png  390 x 844
  *   public/placeholders/baxter.png                       1600 x 1000
+ *
+ * (It used to draw matchday-1..4.png as well. Those are now the supplied
+ * screenshots, and the script no longer touches them.)
  *
  * The Matchday frames are deliberately abstract: neutral blocks where an app
  * screen would be, no names, no numbers, no match data, so nothing can be
@@ -74,7 +76,10 @@ const dir = mkdtempSync(join(tmpdir(), 'ph-'));
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
 
-for (let i = 0; i < screens.length; i++) {
+// The four Matchday screens are now the supplied screenshots of the demo
+// account; this script must never overwrite them. Their stand-ins are kept
+// above only as a record and are not rendered.
+for (let i = 0; i < 0; i++) {
   const html = `<!doctype html><meta charset="utf-8"><style>${css}</style>
     <div class="frame"><div class="notch"></div>${screens[i]}
     <p class="label">Matchday screenshot: replace with demo data<small>Placeholder ${i + 1} of 4</small></p></div>`;
