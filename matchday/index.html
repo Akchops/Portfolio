@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Matchday · Aarav Chopra</title>
+  <meta name="description" content="Matchday: a football tracker built around the player's position.">
+  <meta name="theme-color" content="#0B0C0E">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <script>var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion')</script>
+  <link rel="preload" href="../assets/bricolage-grotesque-latin-wght-DLoelf7F.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/inter-latin-wght-Dx4kXJAl.woff2" as="font" type="font/woff2" crossorigin>
+  <script type="module" crossorigin src="../assets/matchday-PZuOsQhs.js"></script>
+  <link rel="stylesheet" crossorigin href="../assets/main-DckYls6k.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead" data-masthead>
+    <a class="masthead__mark" href="../">Aarav Chopra</a>
+    <nav class="masthead__nav" aria-label="Main">
+      <button class="masthead__menu" type="button" aria-expanded="false" aria-controls="nav-list" data-menu>Menu</button>
+      <ul id="nav-list" class="masthead__list">
+        <li><a href="../#work">Work</a></li>
+        <li><a href="../#process">Process</a></li>
+        <li><a href="../#services">Services</a></li>
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#lab">Lab</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--ember masthead__cta" href="../#book">Book a call</a>
+  </header>
+
+  <main id="main" class="cs">
+    <header class="cs__head">
+      <div class="cs__intro">
+        <p class="tag">Live web app</p>
+        <h1 class="cs__title">Matchday: a football tracker built around the player's position</h1>
+        <p class="cs__lead">Most match trackers assume every player is a striker and count goals and assists. Matchday starts with the player's position and scores what matters for that role.</p>
+      </div>
+      <!-- Hero: the Matchday brag video, muted and looping. Reduced-motion
+           visitors get the still poster and controls instead (inline script
+           below runs before playback can start). -->
+      <figure class="cs__hero">
+        <div class="phone">
+          <video class="phone__screen" src="../media/matchday-brag-1.mp4" poster="../media/matchday-brag-1.jpg"
+                 width="720" height="1280" autoplay muted loop playsinline preload="auto" data-hero-video
+                 aria-label="Matchday promo: who it is for, every match rated for the player's position, and the academy side with squads and team picking"></video>
+          <script>(function (v) { if (matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.autoplay = false; v.pause(); v.preload = 'none'; v.controls = true; } })(document.currentScript.previousElementSibling)</script>
+        </div>
+      </figure>
+    </header>
+
+    <section class="cs__block" aria-labelledby="pos-title">
+      <h2 id="pos-title" class="cs__h2">What each position scores</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="pos-title">
+        <table class="pos">
+          <thead><tr><th scope="col">Position</th><th scope="col">Scored on</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Goalkeeper</th><td>Saves, clean sheets, save percentage</td></tr>
+            <tr><th scope="row">Defender</th><td>Tackles, interceptions, clearances</td></tr>
+            <tr><th scope="row">Midfielder</th><td>Chances created</td></tr>
+            <tr><th scope="row">Forward</th><td>Shots, conversion</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="cs__block" aria-labelledby="screens-title">
+      <h2 id="screens-title" class="cs__h2">Screens</h2>
+      <ol class="gallery" role="list">
+        <li><figure class="gallery__item">
+          <div class="phone"><img class="phone__screen" src="../placeholders/matchday-1.png" width="700" height="1568" loading="lazy"
+               alt="Matchday calendar for the demo player Alex, goalkeeper: the November month grid with match days marked, and the next match, against Vale FC, counting down."></div>
+          <figcaption>Calendar: every fixture on one screen, with the next match counting down.</figcaption>
+        </figure></li>
+        <li><figure class="gallery__item">
+          <div class="phone"><img class="phone__screen" src="../placeholders/matchday-2.png" width="717" height="1568" loading="lazy"
+               alt="Matchday matches list: a countdown to the next match, two past matches waiting for a result, and the upcoming fixtures for November."></div>
+          <figcaption>Matches: results waiting to be logged, and the upcoming list.</figcaption>
+        </figure></li>
+        <li><figure class="gallery__item">
+          <div class="phone"><img class="phone__screen" src="../placeholders/matchday-3.png" width="739" height="1568" loading="lazy"
+               alt="Matchday stats in the goalkeeper view for the demo player Alex: an average match score of 74 out of 100, saves, clean sheets and a bar chart of recent match scores."></div>
+          <figcaption>Stats, goalkeeper view: a 0 to 100 match score with the breakdown behind it.</figcaption>
+        </figure></li>
+        <li><figure class="gallery__item">
+          <div class="phone"><img class="phone__screen" src="../placeholders/matchday-4.png" width="759" height="1568" loading="lazy"
+               alt="Matchday AI coach: a greeting offering to write a training session or watch a clip, with suggestions such as improving diving and handling crosses."></div>
+          <figcaption>AI coach: drill sessions and short-clip feedback.</figcaption>
+        </figure></li>
+      </ol>
+    </section>
+
+    <section class="cs__block" aria-labelledby="feat-title">
+      <h2 id="feat-title" class="cs__h2">Features</h2>
+      <ul class="features">
+        <li>Offline-first installable web app</li>
+        <li>Match calendar</li>
+        <li>0 to 100 match score with a visible breakdown</li>
+        <li>Tournament tracking</li>
+        <li>Training log</li>
+        <li>AI coach (drill sessions and short-clip feedback)</li>
+        <li>Family sharing</li>
+        <li>An academy side with consent controls</li>
+      </ul>
+    </section>
+
+    <section class="cs__block" aria-labelledby="build-title">
+      <h2 id="build-title" class="cs__h2">The build</h2>
+      <ul class="facts">
+        <li class="fact"><span class="fact__q">About</span><span class="fact__n">10</span><span class="fact__l">weeks of build</span></li>
+        <li class="fact"><span class="fact__q" aria-hidden="true"></span><span class="fact__n">77</span><span class="fact__l">commits</span></li>
+        <li class="fact"><span class="fact__q">Roughly</span><span class="fact__n">27,000</span><span class="fact__l">lines of TypeScript</span></li>
+        <li class="fact"><span class="fact__q">About</span><span class="fact__n">465</span><span class="fact__l">automated tests</span></li>
+      </ul>
+      <p class="cs__note">Claude Code wrote most of the code under the founder's direction.</p>
+    </section>
+
+    <section class="cs__block" aria-labelledby="status-title">
+      <h2 id="status-title" class="cs__h2">Status</h2>
+      <p class="status">Live as a web app and free to use. Not yet in the App Store or Play Store.</p>
+      <p class="cs__live"><a href="https://akchops.github.io/football-app/" target="_blank" rel="noopener noreferrer">akchops.github.io/football-app<span class="sr-only"> (opens in a new tab)</span></a></p>
+    </section>
+
+    <section class="cs__cta" aria-label="Book a call">
+      <a class="btn btn--ember btn--lg" href="../#book">Book a call</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__email"><a href="mailto:Aaravchopra1202@gmail.com">Aaravchopra1202@gmail.com</a></p>
+    <nav aria-label="Footer">
+      <ul class="footer__links">
+        <li><a href="../#work">Work</a></li>
+        <li><a href="../#services">Services</a></li>
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#book">Book</a></li>
+      </ul>
+    </nav>
+    <p class="footer__copy">© Aarav Chopra</p>
+  </footer>
+
+</body>
+</html>

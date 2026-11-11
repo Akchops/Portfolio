@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Aarav Chopra · Digital services</title>
+  <meta name="description" content="Digital services for businesses that want to be remembered.">
+  <meta name="theme-color" content="#0B0C0E">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Aarav Chopra">
+  <meta property="og:description" content="Digital services for businesses that want to be remembered.">
+  <meta property="og:image" content="./seq/floodlights/still-1600.jpg">
+  <!-- Runs before first paint. Content is visible in the base stylesheet;
+       anything a script later scrubs is only allowed to change once this
+       class proves JavaScript is alive (no-JS gate). -->
+  <script>var d=document.documentElement;d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion')</script>
+  <link rel="preload" href="./assets/bricolage-grotesque-latin-wght-DLoelf7F.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/inter-latin-wght-Dx4kXJAl.woff2" as="font" type="font/woff2" crossorigin>
+  <script type="module" crossorigin src="./assets/main-BIZG0C7F.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/main-DckYls6k.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead" data-masthead>
+    <a class="masthead__mark" href="#top">Aarav Chopra</a>
+    <nav class="masthead__nav" aria-label="Main">
+      <button class="masthead__menu" type="button" aria-expanded="false" aria-controls="nav-list" data-menu>Menu</button>
+      <ul id="nav-list" class="masthead__list">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#lab">Lab</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--ember masthead__cta" href="#book">Book a call</a>
+  </header>
+
+  <main id="main">
+    <!-- 1. HOME — Signature moment 1: Floodlights -->
+    <section id="top" class="hero" aria-labelledby="hero-name" data-hero>
+      <div class="hero__pin" data-hero-pin>
+        <div class="hero__stage">
+          <!-- Static frame. Always in the DOM: it is what no-JS, reduced-motion
+               and no-WebGL visitors see, and the first paint for everyone. -->
+          <picture>
+            <source media="(max-aspect-ratio: 1/1)" srcset="seq/floodlights/still-portrait.jpg" width="720" height="1280">
+            <img class="hero__still" src="./seq/floodlights/still-1600.jpg" width="1600" height="900"
+                 alt="A football pitch at night under four floodlights, seen from the centre circle"
+                 fetchpriority="high" data-hero-still>
+          </picture>
+        </div>
+        <div class="hero__copy">
+          <h1 id="hero-name" class="hero__name" data-hero-name>Aarav Chopra</h1>
+          <p class="hero__line">Digital services for businesses that want to be remembered.</p>
+          <a class="btn btn--ember btn--lg hero__cta" href="#book" data-sticky-cta>Book a call</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. WORK -->
+    <section id="work" class="section work" aria-labelledby="work-title">
+      <header class="section__head">
+        <p class="eyebrow"><span class="eyebrow__no">01</span> Work</p>
+        <h2 id="work-title" class="section__title">Work</h2>
+      </header>
+
+      <ul class="work__grid" role="list">
+        <li class="card card--matchday">
+          <figure class="card__media card__media--phone">
+            <!-- Plays once each time the card scrolls into view and rests on its
+                 end card (src/main.js); reduced motion and no-JS show the poster. -->
+            <div class="phone">
+              <video class="phone__screen" src="./media/matchday-brag-2.mp4" poster="./media/matchday-brag-2.jpg"
+                     width="720" height="1280" muted playsinline preload="none" data-inview-video
+                     aria-label="Matchday promo: most apps count goals, keepers don't score; every match rated for the position you actually play, with the demo player's match score and stats"></video>
+            </div>
+          </figure>
+          <div class="card__body">
+            <p class="tag">Live web app</p>
+            <h3 class="card__title"><a class="card__link" href="matchday/">Matchday</a></h3>
+            <p class="card__line">A football tracker built around the player's position.</p>
+          </div>
+        </li>
+
+        <li class="card card--baxter">
+          <figure class="card__media card__media--wide">
+            <img src="./placeholders/baxter.png" width="1600" height="1000" loading="lazy"
+                 alt="Baxter app (placeholder until a demo-data screenshot is supplied)">
+          </figure>
+          <div class="card__body">
+            <p class="tag">Work in progress</p>
+            <h3 class="card__title"><a class="card__link" href="#baxter">Baxter</a></h3>
+            <p class="card__line">A personal AI assistant that runs on my own PC. It controls the computer, talks and listens, and works from a phone app.</p>
+          </div>
+        </li>
+
+        <li class="card card--prayatn">
+          <div class="card__body">
+            <p class="tag">Charity website</p>
+            <h3 class="card__title">Prayatn</h3>
+            <p class="card__line">A website for Prayatn, a registered charity in Kalkaji, New Delhi, working in education, healthcare and women's development since 1992.</p>
+            <p class="card__url">
+              <!-- The visible link text is the real link. Its ::after stretches
+                   over the card so the whole card is clickable too. -->
+              <a class="card__link card__link--ext" href="https://prayatnonline.org" target="_blank" rel="noopener noreferrer">prayatnonline.org<span class="sr-only"> (opens in a new tab)</span></a>
+            </p>
+            <p class="card__caption">Built by Aarav Chopra.</p>
+          </div>
+        </li>
+
+        <li class="card card--kessel">
+          <figure class="card__media card__media--lens">
+            <img src="./kessel/hero-lens.webp" width="1800" height="1800" loading="lazy"
+                 alt="A Kessel Optics concept lens, whole, turned a little towards the light">
+          </figure>
+          <div class="card__body">
+            <p class="tag">Concept demo · fictional brand</p>
+            <h3 class="card__title"><a class="card__link" href="#kessel">Kessel Optics</a></h3>
+            <p class="card__url"><a class="card__ext" href="https://akchops.github.io/orrin/" target="_blank" rel="noopener noreferrer">View the live demo<span class="sr-only"> (opens in a new tab)</span></a></p>
+          </div>
+        </li>
+      </ul>
+
+      <!-- 3b. BAXTER -->
+      <article id="baxter" class="baxter" aria-labelledby="baxter-title">
+        <figure class="baxter__media">
+          <img src="./placeholders/baxter.png" width="1600" height="1000" loading="lazy"
+               alt="Baxter app (placeholder until a demo-data screenshot is supplied)">
+        </figure>
+        <div class="baxter__body">
+          <h3 id="baxter-title" class="baxter__title">Baxter</h3>
+          <p class="baxter__sub">A personal AI assistant, in progress.</p>
+          <p class="prose">Baxter is a personal AI assistant I'm building for myself. It runs on my own PC and can open apps, manage windows and files, check and draft email, handle calendar and music, and talk with me by voice. It also has a phone app that works from the home screen. It's built on free tiers and uses a safety layer: a confirmation step before anything risky, a stop button, and a logged history of every action. I build it with Claude Code. It's still in progress.</p>
+          <p class="caption">BAXTER: Background Assistant for eXecution, Tasks, Email and Research.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- 4. PROCESS — Signature moment 2: Kickoff to Final Whistle -->
+    <section id="process" class="process" aria-labelledby="process-title" data-process>
+      <div class="process__pin" data-process-pin>
+        <header class="process__head">
+          <p class="eyebrow"><span class="eyebrow__no">02</span> Process</p>
+          <h2 id="process-title" class="section__title">Kickoff to Final Whistle</h2>
+        </header>
+        <div class="process__clock" aria-hidden="true">
+          <span class="process__time" data-clock>00:00</span>
+        </div>
+        <div class="process__rail" aria-hidden="true"><span class="process__fill" data-rail-fill></span></div>
+        <div class="process__viewport">
+          <ol class="process__track" data-track>
+            <li class="stage" data-stage>
+              <span class="stage__no">01</span>
+              <h3 class="stage__name">Brief</h3>
+              <p class="stage__line">A 30-minute call. You get a written scope and a fixed price.</p>
+            </li>
+            <li class="stage" data-stage>
+              <span class="stage__no">02</span>
+              <h3 class="stage__name">Design</h3>
+              <p class="stage__line">Direction, palette, sitemap and two rounds of revisions.</p>
+            </li>
+            <li class="stage" data-stage>
+              <span class="stage__no">03</span>
+              <h3 class="stage__name">Build</h3>
+              <p class="stage__line">A working site, tested on desktop and phone.</p>
+            </li>
+            <li class="stage" data-stage>
+              <span class="stage__no">04</span>
+              <h3 class="stage__name">Launch</h3>
+              <p class="stage__line">Deployment, handover and a short training walkthrough.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. SERVICES -->
+    <section id="services" class="section services" aria-labelledby="services-title">
+      <header class="section__head">
+        <p class="eyebrow"><span class="eyebrow__no">03</span> Services</p>
+        <h2 id="services-title" class="section__title">Services</h2>
+      </header>
+      <ul class="services__grid" role="list">
+        <li class="pkg">
+          <h3 id="pkg-starter" class="pkg__name">Starter</h3>
+          <p class="pkg__desc">A focused one-page site that gets you found and booked.</p>
+          <a class="btn btn--line pkg__cta" href="#book" aria-describedby="pkg-starter">Enquire for a quote</a>
+        </li>
+        <li class="pkg">
+          <h3 id="pkg-studio" class="pkg__name">Studio</h3>
+          <p class="pkg__desc">A multi-page site with a signature interactive moment.</p>
+          <a class="btn btn--line pkg__cta" href="#book" aria-describedby="pkg-studio">Enquire for a quote</a>
+        </li>
+        <li class="pkg">
+          <h3 id="pkg-partner" class="pkg__name">Partner</h3>
+          <p class="pkg__desc">Ongoing design and development for growing businesses.</p>
+          <a class="btn btn--line pkg__cta" href="#book" aria-describedby="pkg-partner">Enquire for a quote</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 6. ABOUT -->
+    <section id="about" class="section about" aria-labelledby="about-title">
+      <header class="section__head">
+        <p class="eyebrow"><span class="eyebrow__no">04</span> About</p>
+        <h2 id="about-title" class="section__title">About</h2>
+      </header>
+      <div class="about__grid">
+        <figure class="about__portrait">
+          <img src="./placeholders/headshot.svg" width="800" height="1000" loading="lazy"
+               alt="Portrait of Aarav Chopra (placeholder)">
+        </figure>
+        <p class="about__story">I build websites and apps for businesses that want to be taken seriously. I work directly with every client and I build with modern tools, including AI, so projects move faster without cutting corners.</p>
+      </div>
+    </section>
+
+    <!-- 7. LAB -->
+    <section id="lab" class="section lab" aria-labelledby="lab-title">
+      <header class="section__head">
+        <p class="eyebrow"><span class="eyebrow__no">05</span> Lab</p>
+        <h2 id="lab-title" class="section__title">Lab</h2>
+      </header>
+
+      <!-- Signature moment 3: Pointer Pitch -->
+      <article class="exp pp" aria-labelledby="pp-title">
+        <div class="exp__text">
+          <p class="tag">Shader experiment</p>
+          <h3 id="pp-title" class="exp__title">Pointer Pitch</h3>
+          <p class="exp__hint" data-pp-hint>Move across the screenshot. On a phone, drag a finger over it.</p>
+        </div>
+        <!-- --pp-ar is matchday-1.png's own width / height, so the stage keeps
+             the screenshot's shape (it sizes the stage to fit the viewport height). -->
+        <figure class="pp__stage" data-pp style="--pp-ar: 700 / 1568">
+          <!-- Tier 3: always present. Tiers 1 (WebGL) and 2 (Canvas 2D) mount a
+               canvas above it after a silent capability probe. -->
+          <img class="pp__still" src="./placeholders/matchday-1.png" width="700" height="1568" loading="lazy"
+               alt="Matchday calendar screen for the demo player Alex, the surface for the Pointer Pitch distortion">
+        </figure>
+      </article>
+
+      <!-- Kessel teardown -->
+      <article id="kessel" class="kessel" aria-labelledby="kessel-title" data-teardown>
+        <header class="kessel__head">
+          <p class="tag">Concept demo · fictional brand</p>
+          <h3 id="kessel-title" class="exp__title">Kessel Optics</h3>
+          <p class="kessel__note">Kessel Optics is a fictional brand. Every name, figure, date and contact detail below is sample content for the concept.</p>
+          <p class="kessel__lead">The same lens, taken apart</p>
+          <p class="kessel__demo"><a class="card__ext" href="https://akchops.github.io/orrin/" target="_blank" rel="noopener noreferrer">View the live demo<span class="sr-only"> (opens in a new tab)</span></a></p>
+        </header>
+
+        <div class="td">
+          <div class="td__stage" data-td-stage>
+            <div class="td__frame" aria-hidden="true">
+              <div class="td__line" data-td-line>
+                <img class="td__apart td__apart--wide" src="./kessel/td-apart.webp" width="1600" height="1000" alt="" loading="lazy">
+                <img class="td__apart td__apart--tall" src="./kessel/td-apart-tall.webp" width="900" height="1600" alt="" loading="lazy">
+              </div>
+              <div class="td__close" data-td-close></div>
+            </div>
+            <div class="td__hud">
+              <div class="td__mapwrap" aria-hidden="true">
+              <div class="td__map" data-td-map>
+                <img class="td__apart--wide" src="./kessel/td-apart.webp" width="1600" height="1000" alt="" loading="lazy">
+                <img class="td__apart--tall" src="./kessel/td-apart-tall.webp" width="900" height="1600" alt="" loading="lazy">
+                <span class="td__view" data-td-view></span>
+              </div>
+              <p class="td__maplabel">Where the camera is</p>
+              </div>
+            </div>
+          </div>
+
+          <ol class="td__stops" data-td-stops>
+            <li class="td__stop" data-part="apart">
+              <figure class="td__fig"><img src="./kessel/td-apart.webp" width="1600" height="1000" loading="lazy" alt="The lens taken apart: front element, glass groups, iris blades fanned out, focus ring, distance scale, barrel, mount and signature plate, each on its own."></figure>
+              <h4 class="td__name">Taken apart</h4>
+              <p class="td__text">Every part on one line. Keep scrolling: the view stops at each in turn.</p>
+            </li>
+            <li class="td__stop" data-part="front-element">
+              <figure class="td__fig"><img src="./kessel/tdc-front-element.webp" width="960" height="960" loading="lazy" alt="Close up of the front element on its own."></figure>
+              <h4 class="td__name"><span class="td__no">01</span> Front element</h4>
+              <p class="td__text">The first and largest glass; its coating glows violet and green.</p>
+            </li>
+            <li class="td__stop" data-part="glass-1">
+              <figure class="td__fig"><img src="./kessel/tdc-glass-1.webp" width="960" height="960" loading="lazy" alt="Close up of the coated glass groups."></figure>
+              <h4 class="td__name"><span class="td__no">02</span> Coated glass groups</h4>
+              <p class="td__text">The other elements, in small coated groups, each at its own distance.</p>
+            </li>
+            <li class="td__stop" data-part="blades">
+              <figure class="td__fig"><img src="./kessel/tdc-blades.webp" width="960" height="960" loading="lazy" alt="Close up of the iris blades fanned out."></figure>
+              <h4 class="td__name"><span class="td__no">03</span> Iris blades</h4>
+              <p class="td__text">Eleven thin blades that close to a pinhole or open all the way.</p>
+            </li>
+            <li class="td__stop" data-part="focus-ring">
+              <figure class="td__fig"><img src="./kessel/tdc-focus-ring.webp" width="960" height="960" loading="lazy" alt="Close up of the knurled focus ring on its own."></figure>
+              <h4 class="td__name"><span class="td__no">04</span> Focus ring</h4>
+              <p class="td__text">The knurled grip that turns the focus, carrying the scale with it.</p>
+            </li>
+            <li class="td__stop" data-part="scale">
+              <figure class="td__fig"><img src="./kessel/tdc-scale.webp" width="960" height="960" loading="lazy" alt="Close up of the engraved distance scale."></figure>
+              <h4 class="td__name"><span class="td__no">05</span> Distance scale</h4>
+              <p class="td__text">Distances engraved round the ring: metres in white, feet in amber.</p>
+            </li>
+            <li class="td__stop" data-part="barrel">
+              <figure class="td__fig"><img src="./kessel/tdc-barrel.webp" width="960" height="960" loading="lazy" alt="Close up of the black anodised barrel."></figure>
+              <h4 class="td__name"><span class="td__no">06</span> Barrel</h4>
+              <p class="td__text">The black anodised body that holds every part at its distance.</p>
+            </li>
+            <li class="td__stop" data-part="mount">
+              <figure class="td__fig"><img src="./kessel/tdc-mount.webp" width="960" height="960" loading="lazy" alt="Close up of the stainless mount with its lugs."></figure>
+              <h4 class="td__name"><span class="td__no">07</span> Mount</h4>
+              <p class="td__text">The stainless mount, the only part that touches the camera.</p>
+            </li>
+            <li class="td__stop" data-part="signature">
+              <figure class="td__fig"><img src="./kessel/tdc-signature.webp" width="960" height="960" loading="lazy" alt="Close up of the signature plate on the rear band."></figure>
+              <h4 class="td__name"><span class="td__no">08</span> Signature plate</h4>
+              <p class="td__text">The rear band, signed by the optician who built this lens.</p>
+            </li>
+            <li class="td__stop" data-part="whole">
+              <figure class="td__fig"><img src="./kessel/tdc-whole.webp" width="960" height="960" loading="lazy" alt="The lens back together, whole."></figure>
+              <h4 class="td__name">Back together</h4>
+              <p class="td__text">Every part returns to its place, as on the optician's bench.</p>
+            </li>
+          </ol>
+
+          <nav class="td__parts" aria-label="Parts of the lens" data-td-parts>
+            <ol>
+              <li><a href="#kessel" data-goto="1">01 <span>Front element</span></a></li>
+              <li><a href="#kessel" data-goto="2">02 <span>Coated glass groups</span></a></li>
+              <li><a href="#kessel" data-goto="3">03 <span>Iris blades</span></a></li>
+              <li><a href="#kessel" data-goto="4">04 <span>Focus ring</span></a></li>
+              <li><a href="#kessel" data-goto="5">05 <span>Distance scale</span></a></li>
+              <li><a href="#kessel" data-goto="6">06 <span>Barrel</span></a></li>
+              <li><a href="#kessel" data-goto="7">07 <span>Mount</span></a></li>
+              <li><a href="#kessel" data-goto="8">08 <span>Signature plate</span></a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="kessel__sheet">
+          <div class="kessel__lenses">
+            <h4 class="kessel__h">The three lenses</h4>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Kessel lens specifications, sample figures">
+              <table class="spec">
+                <caption class="sr-only">Kessel Optics lenses, sample figures for a fictional brand</caption>
+                <thead>
+                  <tr><th scope="col">Sample figures</th><th scope="col">Shaniwar <span>Wide</span></th><th scope="col">Parvati <span>Standard</span></th><th scope="col">Sinhagad <span>Long</span></th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Focal length</th><td>24 mm</td><td>50 mm</td><td>100 mm</td></tr>
+                  <tr><th scope="row">Maximum aperture</th><td>T2.1</td><td>T2.1</td><td>T2.1</td></tr>
+                  <tr><th scope="row">Mount</th><td>PL</td><td>PL</td><td>PL</td></tr>
+                  <tr><th scope="row">Elements</th><td>11 elements in 9 groups</td><td>7 elements in 6 groups</td><td>8 elements in 6 groups</td></tr>
+                  <tr><th scope="row">Iris</th><td>11 blades</td><td>11 blades</td><td>11 blades</td></tr>
+                  <tr><th scope="row">Close focus</th><td>0.25 m</td><td>0.45 m</td><td>1.0 m</td></tr>
+                  <tr><th scope="row">Front diameter</th><td>96 mm</td><td>80 mm</td><td>69 mm</td></tr>
+                  <tr><th scope="row">Length</th><td>71 mm</td><td>99 mm</td><td>144 mm</td></tr>
+                  <tr><th scope="row">Hood</th><td>Small petal, fixed</td><td>None</td><td>Long tube, fixed</td></tr>
+                  <tr><th scope="row">Tripod collar</th><td>None</td><td>None</td><td>Rotating, with foot</td></tr>
+                  <tr><th scope="row">Weight</th><td>0.85 kg</td><td>1.05 kg</td><td>1.60 kg</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="kessel__fine">Sample figures for a fictional brand. Lens names are proposals for the concept.</p>
+          </div>
+          <div class="kessel__dates">
+            <h4 class="kessel__h">Dates</h4>
+            <ol class="dates">
+              <li><span class="dates__y">2017</span> Founded in Pune</li>
+              <li><span class="dates__y">2019</span> The first lens, signed</li>
+              <li><span class="dates__y">2021</span> A larger workshop</li>
+              <li><span class="dates__y">2023</span> The wide model joins</li>
+              <li><span class="dates__y">2025</span> Three lenses</li>
+            </ol>
+            <p class="kessel__fine">Sample dates for a fictional brand.</p>
+            <h4 class="kessel__h">Contact</h4>
+            <dl class="contact-sample">
+              <div><dt>Email</dt><dd>studio@kessel.example</dd></div>
+              <div><dt>Phone</dt><dd>+91 00000 00000</dd></div>
+            </dl>
+            <p class="kessel__fine">Sample contact details for a fictional brand. Not a real address or number.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Aperture and focus: standalone experiments -->
+      <div class="lab__pair">
+        <article class="exp ap" aria-labelledby="ap-title" data-aperture>
+          <div class="exp__text">
+            <p class="tag">Control experiment</p>
+            <h3 id="ap-title" class="exp__title">Aperture</h3>
+          </div>
+          <div class="ap__view">
+            <svg class="ap__iris" viewBox="-100 -100 200 200" role="img" aria-labelledby="ap-iris-label" data-ap-iris>
+              <title id="ap-iris-label">An eleven-blade iris, face on</title>
+              <circle r="96" class="ap__housing"/>
+              <circle r="84" class="ap__well"/>
+              <path class="ap__open" d="M0.00 -80.00L43.25 -67.30L72.77 -33.23L79.19 11.39L60.46 52.39L22.54 76.76L-22.54 76.76L-60.46 52.39L-79.19 11.39L-72.77 -33.23L-43.25 -67.30Z" data-ap-open/>
+              <g class="ap__blades" data-ap-blades></g>
+            </svg>
+            <div class="ap__scene" data-ap-scene aria-hidden="true"></div>
+          </div>
+          <div class="ctl">
+            <label class="ctl__label" for="ap-range">Iris</label>
+            <input class="ctl__range" id="ap-range" type="range" min="0" max="6" step="1" value="0"
+                   aria-valuetext="T2.1" data-ap-range>
+            <div class="ctl__ticks" aria-hidden="true"><span>2.1</span><span>2.8</span><span>4</span><span>5.6</span><span>8</span><span>11</span><span>16</span></div>
+            <p class="ctl__readout"><output for="ap-range" data-ap-out>T2.1</output></p>
+          </div>
+          <p class="kessel__fine">Illustration with sample figures for a fictional brand: Kessel Parvati, 50 mm, eleven blades.</p>
+        </article>
+
+        <article class="exp fo" aria-labelledby="fo-title" data-focus>
+          <div class="exp__text">
+            <p class="tag">Control experiment</p>
+            <h3 id="fo-title" class="exp__title">Focus</h3>
+          </div>
+          <div class="fo__scene" data-fo-scene aria-hidden="true"></div>
+          <div class="ctl">
+            <label class="ctl__label" for="fo-range">Focus distance</label>
+            <input class="ctl__range" id="fo-range" type="range" min="0" max="100" step="1" value="70"
+                   aria-valuetext="5.0 metres" data-fo-range>
+            <div class="ctl__ticks ctl__ticks--fo" aria-hidden="true"><span>0.45</span><span>1</span><span>2</span><span>5</span><span>∞</span></div>
+            <p class="ctl__readout"><output for="fo-range" data-fo-out>5.0 m</output></p>
+            <div class="fo__picks" data-fo-picks>
+              <button type="button" class="chip" data-fo-pick="1.2">Ball <span>1.2 m</span></button>
+              <button type="button" class="chip" data-fo-pick="5">Goal <span>5.0 m</span></button>
+              <button type="button" class="chip" data-fo-pick="Infinity">Floodlight <span>∞</span></button>
+            </div>
+          </div>
+          <p class="kessel__fine">Illustration with sample figures for a fictional brand: Kessel Parvati, 50 mm at T2.1, close focus 0.45 m.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 8. BOOK -->
+    <section id="book" class="section book" aria-labelledby="book-title" data-book>
+      <header class="section__head">
+        <p class="eyebrow"><span class="eyebrow__no">06</span> Book</p>
+        <h2 id="book-title" class="section__title">Book a call</h2>
+      </header>
+      <div class="book__embed" id="cal-inline" data-cal-embed></div>
+      <p class="book__fallback" data-cal-fallback>
+        <a class="btn btn--ember btn--lg" href="mailto:Aaravchopra1202@gmail.com">Email to book</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- 9. FOOTER -->
+  <footer class="footer">
+    <p class="footer__email"><a href="mailto:Aaravchopra1202@gmail.com">Aaravchopra1202@gmail.com</a></p>
+    <nav aria-label="Footer">
+      <ul class="footer__links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#book">Book</a></li>
+      </ul>
+    </nav>
+    <p class="footer__copy">© Aarav Chopra</p>
+  </footer>
+
+</body>
+</html>
